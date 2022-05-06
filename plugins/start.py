@@ -36,10 +36,10 @@ async def start_command(client: Client, message: Message):
             return
         string = await decode(base64_string)
         argument = string.split("-")
-        if len(argument) == 3:
+        if len(argument) == 2:
             try:
-                start = int(int(argument[1]) / abs(client.db_channel.id))
-                end = int(int(argument[2]) / abs(client.db_channel.id))
+                start = int(int(argument[0]) / abs(client.db_channel.id))
+                end = int(int(argument[1]) / abs(client.db_channel.id))
             except:
                 return
             if start <= end:
@@ -52,9 +52,9 @@ async def start_command(client: Client, message: Message):
                     i -= 1
                     if i < end:
                         break
-        elif len(argument) == 2:
+        elif len(argument) == 1:
             try:
-                ids = [int(int(argument[1]) / abs(client.db_channel.id))]
+                ids = [int(int(argument[0]) / abs(client.db_channel.id))]
             except:
                 return
         temp_msg = await message.reply("Please wait...")
