@@ -35,11 +35,11 @@
     },
     "START_MESSAGE": {
       "description": "Optional: start message of bot, use HTML parsemode format",
-      "value": "Hello {first}\n\nI can store private files in Specified Channel and other users can access it from special link."
+      "value": "👋 سلام {mention} عزیز\n💠 به ربات آپلودر شخصی خوش آمدید.\n\n🆔 شناسهٔ کاربری شما: <code>{id}</code>"
     },
     "FORCE_SUB_MESSAGE": {
       "description": "Optional: Force Sub message of bot, use HTML parsemode format",
-      "value": "Hello {first}\n\n<b>You need to join in my Channel/Group to use me\n\nKindly Please join Channel</b>"
+      "value": "⚠️ کاربر گرامی، {first}\n\n❗️ جهت استفاده از این ربات، باید در کانال زیر عضو باشید."
     },
     "ADMINS": {
       "description": "A space separated list of user_ids of Admins, they can only create links",
