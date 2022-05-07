@@ -13,9 +13,9 @@ from database.sql import add_user, query_msg, full_userbase
 
 #=====================================================================================##
 
-WAIT_MSG = """"<b>Processing ...</b>"""
+WAIT_MSG = """"<b>⏳️ در حال پردازش...</b>"""
 
-REPLY_ERROR = """<code>Use this command as a replay to any telegram message with out any spaces.</code>"""
+REPLY_ERROR = """📢 پیام همگانی\n🔹️ مجددا دستور /broadcast را در ریپلای به پیام مورد نظرتان ارسال کنید."""
 
 #=====================================================================================##
 
@@ -57,11 +57,11 @@ async def start_command(client: Client, message: Message):
                 ids = [int(int(argument[0]) / int(str(abs(client.db_channel.id))[3:]))]
             except:
                 return
-        temp_msg = await message.reply("Please wait...")
+        temp_msg = await message.reply("⏳️ لطفا صبر کنید...")
         try:
             messages = await get_messages(client, ids)
         except:
-            await message.reply_text("Something went wrong..!")
+            await message.reply_text("❌️ چیزی با مشکل مواجه شد!")
             return
         await temp_msg.delete()
 
@@ -90,8 +90,8 @@ async def start_command(client: Client, message: Message):
         reply_markup = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("😊 About Me", callback_data = "about"),
-                    InlineKeyboardButton("🔒 Close", callback_data = "close")
+                    InlineKeyboardButton("🤖 دربارهٔ ربات", callback_data = "about"),
+                    InlineKeyboardButton("❌️ بستن", callback_data = "close")
                 ]
             ]
         )
@@ -114,7 +114,7 @@ async def not_joined(client: Client, message: Message):
     buttons = [
         [
             InlineKeyboardButton(
-                "Join Channel",
+                "🔹️ عضویت در کانال",
                 url = client.invitelink)
         ]
     ]
@@ -122,7 +122,7 @@ async def not_joined(client: Client, message: Message):
         buttons.append(
             [
                 InlineKeyboardButton(
-                    text = 'Try Again',
+                    text = '🔸️ دوباره تلاش کنید',
                     url = f"https://t.me/{client.username}?start={message.command[1]}"
                 )
             ]
@@ -147,7 +147,7 @@ async def not_joined(client: Client, message: Message):
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     users = await full_userbase()
-    await msg.edit(f"{len(users)} users are using this bot")
+    await msg.edit(f"👤 تعداد {len(users)} کاربر از این ربات استفاده می‌کنند.")
 
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
 async def send_text(client: Bot, message: Message):
@@ -160,7 +160,7 @@ async def send_text(client: Bot, message: Message):
         deleted = 0
         unsuccessful = 0
         
-        pls_wait = await message.reply("<i>Broadcasting Message.. This will Take Some Time</i>")
+        pls_wait = await message.reply("<i>📢 در حال ارسال پیام همگانی...\n\n🔹️ ممکن است کمی طول بکشد.</i>")
         for row in query:
             chat_id = int(row[0])
             try:
@@ -179,13 +179,13 @@ async def send_text(client: Bot, message: Message):
                 pass
             total += 1
         
-        status = f"""<b><u>Broadcast Completed</u>
+        status = f"""<b><u>📢 پیام همگانی کامل شد</u>
 
-Total Users: <code>{total}</code>
-Successful: <code>{successful}</code>
-Blocked Users: <code>{blocked}</code>
-Deleted Accounts: <code>{deleted}</code>
-Unsuccessful: <code>{unsuccessful}</code></b>"""
+👤 تعداد کاربران: <code>{total}</code>
+✅️ موفق: <code>{successful}</code>
+🔒 بلاک کرده: <code>{blocked}</code>
+🚫 دیلیت اکانت: <code>{deleted}</code>
+❌️ ناموفق: <code>{unsuccessful}</code></b>"""
         
         return await pls_wait.edit(status)
 
