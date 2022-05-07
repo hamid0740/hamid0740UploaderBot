@@ -54,7 +54,7 @@ async def start_command(client: Client, message: Message):
                         break
         elif len(argument) == 1:
             try:
-                ids = [int(int(argument[0]) / abs(client.db_channel.id))]
+                ids = [int(int(argument[0]) / int(str(abs(client.db_channel.id))[3:]))]
             except:
                 return
         temp_msg = await message.reply("Please wait...")
