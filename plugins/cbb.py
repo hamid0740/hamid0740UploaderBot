@@ -10,12 +10,12 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
     if data == "about":
         await query.message.edit_text(
-            text = "This bot is personal uploader of hamid0740",
+            text = "🤖 ربات آپلودر اختصاصی\n💻 توسعه یافته توسط: <b><u>hamid0740</u></b>\n\n📩 ارتباط با توسعه دهنده: @hamid0740bot",
             disable_web_page_preview = True,
             reply_markup = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("🔒 Close", callback_data = "close")
+                        InlineKeyboardButton("❌️ بستن", callback_data = "close")
                     ]
                 ]
             )
